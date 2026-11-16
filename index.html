@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RentalOS — Self-Hosted Event Rental Software (Live Demo)</title>
+<meta name="description" content="RentalOS is self-hosted event rental software: inventory, quotes, availability conflict detection, pull sheets, e-signatures, public SEO catalog and an AI copilot. React, Express, SQLite and Rust. Try the live demo.">
+<meta name="keywords" content="event rental software, rental inventory management, quote management, pull sheets, self-hosted, React, Express, SQLite, Rust, portfolio">
+<meta name="author" content="Joe Wayne / 248Tech LLC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://248tech.github.io/rentalos-site/">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d3b52">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RentalOS">
+<meta property="og:title" content="RentalOS — Self-Hosted Event Rental Software">
+<meta property="og:description" content="Inventory, quotes, availability checks, pull sheets, e-signatures and a public SEO catalog. Sign in to the live demo as admin.">
+<meta property="og:url" content="https://248tech.github.io/rentalos-site/">
+<meta property="og:image" content="https://248tech.github.io/rentalos-site/assets/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RentalOS — Event Rental Software">
+<meta name="twitter:description" content="Self-hosted. Try the live admin demo.">
+<meta name="twitter:image" content="https://248tech.github.io/rentalos-site/assets/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"RentalOS","applicationCategory":"BusinessApplication","operatingSystem":"Linux, Windows, Docker","description":"Self-hosted event rental software for inventory, quotes, contracts, pull sheets and public catalog publishing.","url":"https://248tech.github.io/rentalos-site/","programmingLanguage":["JavaScript","Rust"],"author":{"@type":"Organization","name":"248Tech LLC","url":"https://github.com/248Tech"}}
+</script>
+<style>
+:root{--navy:#0d3b52;--primary:#1a8fc1;--accent:#16b2a5;--bg:#f4f8fb;--panel:#fff;--line:#dce8f0;--text:#1a1a2e;--muted:#566474;--purple:#7c3aed}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:99}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:20;background:rgba(13,59,82,.95);backdrop-filter:blur(8px)}
+header.top .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700}.logo b{width:30px;height:30px;border-radius:7px;background:var(--primary);display:grid;place-items:center}
+nav.links{display:flex;gap:18px;margin-left:auto;font-size:.88rem}nav.links a{color:#bcd6e4}nav.links a:hover{color:#fff;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.7rem 1.25rem;border-radius:10px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--text)}.btn:hover{text-decoration:none;border-color:var(--primary)}
+.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 8px 24px rgba(26,143,193,.35)}.btn.primary:hover{background:#157aa6}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.hero{background:linear-gradient(135deg,#0d3b52 0%,#136a8f 60%,#16b2a5 120%);color:#fff;padding:72px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.eyebrow{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.35);padding:.25rem .7rem;border-radius:99px}
+h1{font-size:clamp(2.1rem,5vw,3.3rem);line-height:1.1;margin:.9rem 0 1rem;letter-spacing:-.02em}
+.lead{font-size:1.1rem;max-width:56ch;color:#d4e8f2;margin:0 0 1.5rem}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.badges{display:flex;gap:6px;flex-wrap:wrap}.badges img{height:20px}
+.creds{margin-top:18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:12px 16px;font-size:.88rem;max-width:480px}
+.creds code{background:rgba(0,0,0,.28);padding:2px 7px;border-radius:6px;font-size:.82rem}
+.shot{background:#fff;border-radius:14px;box-shadow:0 30px 70px rgba(0,0,0,.4);overflow:hidden;color:var(--text);font-size:.78rem}
+.shot .bar{background:#eef3f7;padding:.45rem .7rem;display:flex;gap:5px}.shot .bar i{width:9px;height:9px;border-radius:50%;background:#cbd5df}
+.shot .body{display:grid;grid-template-columns:70px 1fr}.shot .sb{background:#0d3b52;min-height:250px}.shot .mn{padding:.8rem}
+.shot .k{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}.shot .k div{border:1px solid var(--line);border-radius:6px;padding:.4rem}.shot .k b{display:block;font-size:1rem}
+.shot .al{background:#fdeceb;border:1px solid #f3b4ae;color:#8a1c14;border-radius:6px;padding:.4rem .5rem;margin-bottom:8px}
+.shot .rw{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid #edf2f6}
+section{padding:64px 0}h2{font-size:clamp(1.5rem,3vw,2rem);margin:0 0 .5rem;letter-spacing:-.01em}.sub{color:var(--muted);margin:0 0 32px;max-width:70ch}
+.alt{background:#fff;border-block:1px solid var(--line)}
+.grid{display:grid;gap:16px}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}.alt .card{background:var(--bg)}
+.card h3{margin:.2rem 0 .4rem;font-size:1.02rem}.card p{margin:0;color:var(--muted);font-size:.92rem}
+.ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#e0f1fa;font-size:1.15rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}.stats b{display:block;font-size:2rem;color:var(--primary)}.stats span{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{border:1px solid var(--line);background:#fff;border-radius:99px;padding:.3rem .8rem;font-size:.82rem;color:var(--muted)}
+pre.arch{margin:0;background:#0d2230;color:#cfe3ee;border-radius:12px;padding:20px;overflow:auto;font-size:.8rem;line-height:1.45}
+.steps{counter-reset:s;display:grid;gap:12px;padding:0;list-style:none}.steps li{counter-increment:s;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 16px 16px 58px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.85rem}
+pre.code{background:#0d2230;color:#cfe3ee;border-radius:10px;padding:14px;overflow:auto;margin:10px 0 0;font-size:.82rem}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+footer{background:var(--navy);color:#a9c6d6;padding:32px 0;font-size:.85rem}footer a{color:#d4e8f2}footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.g3,.g4{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}nav.links{display:none}}
+@media(max-width:560px){.g3,.g4,.g2{grid-template-columns:1fr}.hero{padding-top:40px}section{padding:44px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="logo" href="./"><b>R</b>RentalOS</a>
+<nav class="links" aria-label="Sections"><a href="#features">Features</a><a href="#architecture">Architecture</a><a href="#engineering">Engineering</a><a href="#run">Get RentalOS</a></nav>
+<a class="btn primary" href="demo/" style="padding:.45rem .9rem;font-size:.85rem">Live demo</a></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow">Self-hosted · Commercially licensed</span>
+    <h1>Event rental software you can <u style="text-decoration-color:#16b2a5">own and self&#8209;host.</u></h1>
+    <p class="lead">Inventory, project quoting, live availability checks, pull sheets, customer e-signatures and an SEO-friendly public catalog — in one full-stack app, with an optional AI copilot that can read and draft but never act on its own.</p>
+    <div class="cta"><a class="btn primary" href="demo/">▶ Open the live demo</a><a class="btn ghost" href="#run">Licensing</a></div>
+    <div class="badges" aria-label="Project badges">
+      <img alt="Release" src="https://img.shields.io/badge/release-v0.0.13-1a8fc1?style=flat-square">
+      <img alt="React" src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB">
+      <img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white">
+      <img alt="Express" src="https://img.shields.io/badge/Express-000?style=flat-square&logo=express&logoColor=white">
+      <img alt="SQLite" src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white">
+      <img alt="Rust" src="https://img.shields.io/badge/Rust-000?style=flat-square&logo=rust&logoColor=white">
+      <img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white">
+    </div>
+    <div class="creds"><b>Demo admin — pre-filled on the login page</b><br>Email <code>admin@sunset-demo.test</code> · Password <code>DemoAdmin!2026</code><br><span style="opacity:.8">Fictional company, in-browser data. No server, nothing stored.</span></div>
+  </div>
+  <div class="shot" aria-hidden="true"><div class="bar"><i></i><i></i><i></i></div><div class="body"><div class="sb"></div><div class="mn">
+    <div class="al"><b>4 availability conflicts</b> · Gold Chiavari Chair needs 220, 20 free</div>
+    <div class="k"><div>Pipeline<b>$20.6k</b></div><div>Booked<b>$8.5k</b></div><div>Leads<b>2</b></div></div>
+    <div class="rw"><span>Hartwell Wedding</span><span>approved</span></div><div class="rw"><span>Oakview Gala</span><span>sent</span></div><div class="rw"><span>Riverside Corporate Picnic</span><span>sent</span></div><div class="rw"><span>Chen 50th Birthday</span><span>draft</span></div>
+  </div></div></div>
+</div></section>
+
+<section class="alt" style="padding:36px 0"><div class="wrap stats" role="list">
+  <div role="listitem"><b>100k+</b><span>lines of code</span></div><div role="listitem"><b>85</b><span>automated test files</span></div><div role="listitem"><b>13</b><span>tagged releases</span></div><div role="listitem"><b>3</b><span>runtimes: Node, Rust, Chrome MV3</span></div>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <h2>What it does</h2><p class="sub">Built around the real workflow of a rental company, from first inquiry to pull sheet. The demo lets you try each of these.</p>
+  <div class="grid g3">
+    <div class="card"><div class="ic">▦</div><h3>Inventory &amp; availability</h3><p>Searchable catalog with categories, stock, set-asides and per-day availability. Overbooked items surface as conflicts before you promise them.</p></div>
+    <div class="card"><div class="ic">▤</div><h3>Quotes &amp; pricing</h3><p>Line items, discounts, tax, custom items and contract text — with signed-versus-unsigned change tracking that forces re-approval.</p></div>
+    <div class="card"><div class="ic">✍</div><h3>Client portal &amp; signing</h3><p>Shareable public quote page with approve-and-sign, live quote-linked messaging and audit-oriented signing artifacts.</p></div>
+    <div class="card"><div class="ic">☑</div><h3>Pull sheets</h3><p>Warehouse picking lists grouped by category, with aggregate pulls and QR/serial tracking for fulfillment.</p></div>
+    <div class="card"><div class="ic">🌐</div><h3>Public SEO catalog</h3><p>Canonical URLs, JSON-LD product markup, robots and sitemap generation so your inventory ranks.</p></div>
+    <div class="card"><div class="ic">✦</div><h3>CINDY copilot</h3><p>Permission-aware, read/draft-only assistant across the app. Supports OpenAI, Anthropic, Gemini or managed local Ollama — AI is never a hard dependency.</p></div>
+  </div>
+  <p style="margin-top:28px"><a class="btn primary" href="demo/">Try it in the demo →</a></p>
+</div></section>
+
+<section id="architecture" class="alt"><div class="wrap">
+  <h2>Architecture</h2><p class="sub">A single deployable: SPA, API and SQLite, with optional Rust and AI services behind feature flags.</p>
+  <pre class="arch" aria-label="Architecture diagram">
+  Browser (React + Vite SPA)  ◄─────►  Public quote &amp; catalog pages (SEO)
+        │  REST / SSE
+        ▼
+  Express API ── permissions · quotes · inventory · files · messaging · admin
+        │            │                  │
+        ▼            ▼                  ▼
+  SQLite (sql.js)   Rust availability   Optional AI: OpenAI · Anthropic · Gemini · Ollama
+  + safe migrations engine (guarded)    (CINDY copilot, read/draft only)
+        ▲
+  Chrome MV3 extension  ·  Google Sheets import  ·  SMTP / IMAP  ·  Docker / Windows EXE</pre>
+</div></section>
+
+<section id="engineering"><div class="wrap">
+  <h2>Engineering highlights</h2><p class="sub">Choices that go beyond the feature list.</p>
+  <div class="grid g2">
+    <div class="card"><h3>Safe schema evolution</h3><p>Startup migrations keep a live database upgradeable, with backup and a DB guardian service plus worker heartbeats and incident reflection.</p></div>
+    <div class="card"><h3>Permissions by module</h3><p>Role-aware navigation and per-module read/write permissions, including a dedicated check for AI copilot access.</p></div>
+    <div class="card"><h3>Domain correctness</h3><p>Shared totals logic, oversold detection across overlapping events, signed-quote change control and a guarded Rust parity path for the availability engine.</p></div>
+    <div class="card"><h3>Documented &amp; audited</h3><p>Architecture and API docs, a security audit, release notes per version, structured handoffs and an extensive test suite.</p></div>
+  </div>
+  <h3 style="margin:32px 0 12px">Tech stack</h3>
+  <div class="tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Express</span><span class="tag">sql.js / SQLite</span><span class="tag">Rust</span><span class="tag">Chrome MV3</span><span class="tag">Docker</span><span class="tag">Bun / Node 20</span><span class="tag">Mapbox</span><span class="tag">Nodemailer / IMAPFlow</span><span class="tag">Sharp</span><span class="tag">JSON-LD / SEO</span></div>
+</div></section>
+
+<section id="run" class="alt"><div class="wrap">
+  <h2>Get RentalOS</h2><p class="sub">RentalOS is proprietary software, licensed to event rental companies for self-hosted use on their own infrastructure.</p>
+  <ol class="steps">
+    <li><b>License</b> — RentalOS is available under a commercial license. Your business data stays on your servers.</li>
+    <li><b>Deploy</b> — licensed customers receive a versioned, ready-to-run Docker deployment; configuration lives in your own <code>.env</code> (optional AI / Mapbox keys use your own accounts).</li>
+    <li><b>Update</b> — new versions are delivered through a controlled release channel.</li>
+  </ol>
+  <p style="margin-top:20px">Licensing inquiries: <a href="https://github.com/248Tech">248Tech LLC</a></p>
+</div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Joe Wayne / 248Tech LLC · All rights reserved · RentalOS is proprietary software</span><span><a href="demo/">Live demo</a> · <a href="#run">Licensing</a></span></div></footer>
+</body>
+</html>
