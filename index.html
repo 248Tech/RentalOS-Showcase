@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RentalOS — Self-Hosted Event Rental Software (Live Demo)</title>
-<meta name="description" content="RentalOS is self-hosted event rental software: inventory, quotes, availability conflict detection, pull sheets, e-signatures, public SEO catalog and an AI copilot. React, Express, SQLite and Rust. Try the live demo.">
+<meta name="description" content="RentalOS is self-hosted event rental software: inventory, quotes, availability conflict detection, pull sheets, click-to-sign approvals, public SEO catalog and an optional AI assistant. React, Express and SQLite. In pre-release testing; try the browser demo.">
 <meta name="keywords" content="event rental software, rental inventory management, quote management, pull sheets, self-hosted, React, Express, SQLite, Rust, portfolio">
 <meta name="author" content="Joe Wayne / 248Tech LLC">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -84,10 +84,10 @@ footer{background:var(--navy);color:#a9c6d6;padding:32px 0;font-size:.85rem}foot
 <main id="main">
 <section class="hero"><div class="wrap">
   <div>
-    <span class="eyebrow">Self-hosted · Commercially licensed</span>
+    <span class="eyebrow">Self-hosted · Pre-release testing</span>
     <h1>Event rental software you can <u style="text-decoration-color:#16b2a5">own and self&#8209;host.</u></h1>
-    <p class="lead">Inventory, project quoting, live availability checks, pull sheets, customer e-signatures and an SEO-friendly public catalog — in one full-stack app, with an optional AI copilot that can read and draft but never act on its own.</p>
-    <div class="cta"><a class="btn primary" href="demo/">▶ Open the live demo</a><a class="btn ghost" href="#run">Licensing</a></div>
+    <p class="lead">Inventory, project quoting, live availability checks, pull sheets, click-to-sign customer approvals and an SEO-friendly public catalog — in one full-stack app, with an optional AI assistant that proposes changes and applies them only after you confirm.</p>
+    <div class="cta"><a class="btn primary" href="demo/">▶ Try the browser demo</a><a class="btn ghost" href="#case-study">Case study</a><a class="btn ghost" href="#run">Licensing</a></div>
     <div class="badges" aria-label="Project badges">
       <img alt="Release" src="https://img.shields.io/badge/release-v0.0.13-1a8fc1?style=flat-square">
       <img alt="React" src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB">
@@ -115,16 +115,16 @@ footer{background:var(--navy);color:#a9c6d6;padding:32px 0;font-size:.85rem}foot
   <div class="grid g3">
     <div class="card"><div class="ic">▦</div><h3>Inventory &amp; availability</h3><p>Searchable catalog with categories, stock, set-asides and per-day availability. Overbooked items surface as conflicts before you promise them.</p></div>
     <div class="card"><div class="ic">▤</div><h3>Quotes &amp; pricing</h3><p>Line items, discounts, tax, custom items and contract text — with signed-versus-unsigned change tracking that forces re-approval.</p></div>
-    <div class="card"><div class="ic">✍</div><h3>Client portal &amp; signing</h3><p>Shareable public quote page with approve-and-sign, live quote-linked messaging and audit-oriented signing artifacts.</p></div>
+    <div class="card"><div class="ic">✍</div><h3>Client portal &amp; signing</h3><p>Shareable public quote page with click-to-sign approval. Each signature records the typed name, time, IP, user agent and a hash of the quote as signed.</p></div>
     <div class="card"><div class="ic">☑</div><h3>Pull sheets</h3><p>Warehouse picking lists grouped by category, with aggregate pulls and QR/serial tracking for fulfillment.</p></div>
     <div class="card"><div class="ic">🌐</div><h3>Public SEO catalog</h3><p>Canonical URLs, JSON-LD product markup, robots and sitemap generation so your inventory ranks.</p></div>
-    <div class="card"><div class="ic">✦</div><h3>CINDY copilot</h3><p>Permission-aware, read/draft-only assistant across the app. Supports OpenAI, Anthropic, Gemini or managed local Ollama — AI is never a hard dependency.</p></div>
+    <div class="card"><div class="ic">✦</div><h3>CINDY copilot</h3><p>Optional, permission-aware assistant. It proposes quote and inventory changes that apply only after a user confirms, with undo. Works with OpenAI, Anthropic, Gemini or a local Ollama model.</p></div>
   </div>
   <p style="margin-top:28px"><a class="btn primary" href="demo/">Try it in the demo →</a></p>
 </div></section>
 
 <section id="architecture" class="alt"><div class="wrap">
-  <h2>Architecture</h2><p class="sub">A single deployable: SPA, API and SQLite, with optional Rust and AI services behind feature flags.</p>
+  <h2>Architecture</h2><p class="sub">A single deployable: SPA, API and SQLite, with an experimental Rust engine and optional AI behind feature flags (both off by default).</p>
   <pre class="arch" aria-label="Architecture diagram">
   Browser (React + Vite SPA)  ◄─────►  Public quote &amp; catalog pages (SEO)
         │  REST / SSE
@@ -133,7 +133,8 @@ footer{background:var(--navy);color:#a9c6d6;padding:32px 0;font-size:.85rem}foot
         │            │                  │
         ▼            ▼                  ▼
   SQLite (sql.js)   Rust availability   Optional AI: OpenAI · Anthropic · Gemini · Ollama
-  + safe migrations engine (guarded)    (CINDY copilot, read/draft only)
+  + safe migrations engine (experimental,  (CINDY copilot, confirm-to-apply)
+                    shadow mode)
         ▲
   Chrome MV3 extension  ·  Google Sheets import  ·  SMTP / IMAP  ·  Docker / Windows EXE</pre>
 </div></section>
@@ -144,22 +145,37 @@ footer{background:var(--navy);color:#a9c6d6;padding:32px 0;font-size:.85rem}foot
     <div class="card"><h3>Safe schema evolution</h3><p>Startup migrations keep a live database upgradeable, with backup and a DB guardian service plus worker heartbeats and incident reflection.</p></div>
     <div class="card"><h3>Permissions by module</h3><p>Role-aware navigation and per-module read/write permissions, including a dedicated check for AI copilot access.</p></div>
     <div class="card"><h3>Domain correctness</h3><p>Shared totals logic, oversold detection across overlapping events, signed-quote change control and a guarded Rust parity path for the availability engine.</p></div>
-    <div class="card"><h3>Documented &amp; audited</h3><p>Architecture and API docs, a security audit, release notes per version, structured handoffs and an extensive test suite.</p></div>
+    <div class="card"><h3>Documented &amp; audited</h3><p>Architecture and API docs, a security audit, release notes per version, and 85 test files covering server security, availability parity and client quote logic. CI for the suites is next.</p></div>
   </div>
   <h3 style="margin:32px 0 12px">Tech stack</h3>
   <div class="tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Express</span><span class="tag">sql.js / SQLite</span><span class="tag">Rust</span><span class="tag">Chrome MV3</span><span class="tag">Docker</span><span class="tag">Bun / Node 20</span><span class="tag">Mapbox</span><span class="tag">Nodemailer / IMAPFlow</span><span class="tag">Sharp</span><span class="tag">JSON-LD / SEO</span></div>
 </div></section>
 
+<section id="case-study"><div class="wrap">
+  <h2>Case study</h2><p class="sub">Why RentalOS exists, how it is built, and what is not finished yet.</p>
+  <!-- SCREENSHOTS -->
+  <div class="grid g2">
+    <div class="card"><h3>The problem</h3><p>Event rental companies quote the same tents, tables and chairs for many overlapping events. Promise the same stock twice and someone finds out on the loading dock. RentalOS was built by Joe Wayne, who spent seven years in event rental operations, five of them in management, to make availability, quoting, signing and warehouse pulls one connected workflow.</p></div>
+    <div class="card"><h3>Status</h3><p>Pre-release testing. Single developer, AI-assisted. 13 tagged versions (v0.0.1 to v0.0.13). Single-tenant: one company per installation.</p></div>
+    <div class="card"><h3>Design decision: confirmed vs potential stock</h3><p>Only confirmed quotes reserve inventory. Drafts and sent quotes count as <em>potential</em>, so a salesperson sees a likely conflict without blocking stock for an event that may never book. After a client signs, only quantity added later counts as potential. The tradeoff is two numbers to explain instead of one.</p></div>
+    <div class="card"><h3>Hard problem: proving what was agreed</h3><p>Click-to-sign stores the signer&#39;s name, time, IP and user agent, the signed total, the signed line items and a hash of the quote snapshot. Later edits are tracked against that snapshot and require re-approval. It is click-wrap acceptance, not a drawn signature.</p></div>
+    <div class="card"><h3>Optional AI, with a human in the loop</h3><p>The assistant can propose changes to quotes and items. Nothing applies until a user confirms; permissions are re-checked at confirmation and changes can be undone. AI is off unless a provider is configured.</p></div>
+    <div class="card"><h3>Experimental Rust engine</h3><p>A Rust (Axum) implementation of the availability math can run in shadow mode next to the Node engine and log any disagreement. Parity tests compare the two. It is off by default and not part of the Docker image yet.</p></div>
+    <div class="card"><h3>Testing</h3><p>89 server tests (copilot security, Rust parity, assistant behavior) and about 160 client tests for public quote, catalog and SEO logic. Tests run locally; CI is not set up yet.</p></div>
+    <div class="card"><h3>Known limitations</h3><p>Single-tenant. No continuous integration yet. Signing is click-wrap and has not had legal review.</p></div>
+  </div>
+</div></section>
+
 <section id="run" class="alt"><div class="wrap">
-  <h2>Get RentalOS</h2><p class="sub">RentalOS is proprietary software, licensed to event rental companies for self-hosted use on their own infrastructure.</p>
+  <h2>Get RentalOS</h2><p class="sub">RentalOS is proprietary software for event rental companies to run on their own infrastructure. It is currently in pre-release testing.</p>
   <ol class="steps">
-    <li><b>License</b> — RentalOS is available under a commercial license. Your business data stays on your servers.</li>
-    <li><b>Deploy</b> — licensed customers receive a versioned, ready-to-run Docker deployment; configuration lives in your own <code>.env</code> (optional AI / Mapbox keys use your own accounts).</li>
+    <li><b>License</b> — commercial license for self-hosted use. Business data stays on your server; optional AI and Mapbox features send requests to those providers using your own keys.</li>
+    <li><b>Deploy</b> — a versioned Docker deployment, configured through your own <code>.env</code>.</li>
     <li><b>Update</b> — new versions are delivered through a controlled release channel.</li>
   </ol>
-  <p style="margin-top:20px">Licensing inquiries: <a href="https://github.com/248Tech">248Tech LLC</a></p>
+  <p style="margin-top:20px">Pre-release access and licensing: <a href="mailto:joe@248tech.com">joe@248tech.com</a></p>
 </div></section>
 </main>
-<footer><div class="wrap"><span>© 2026 Joe Wayne / 248Tech LLC · All rights reserved · RentalOS is proprietary software</span><span><a href="demo/">Live demo</a> · <a href="#run">Licensing</a></span></div></footer>
+<footer><div class="wrap"><span>© 2026 Joe Wayne / 248Tech LLC · All rights reserved · RentalOS is proprietary software</span><span><a href="demo/">Browser demo</a> · <a href="#case-study">Case study</a> · <a href="#run">Licensing</a></span></div></footer>
 </body>
 </html>
