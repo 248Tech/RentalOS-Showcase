@@ -1,9 +1,9 @@
-# RentalOS — Website & Interactive Demo
+# RentalOS Showcase — Case Study & Interactive Demo
 
 Public marketing site and in-browser demo for **RentalOS**, self-hosted event rental software.
 
-- Site: https://248tech.github.io/rentalos-site/
-- Demo: https://248tech.github.io/rentalos-site/demo/
+- Site: https://248tech.github.io/RentalOS-Showcase/
+- Demo: https://248tech.github.io/RentalOS-Showcase/demo/
 
 The demo is a static simulation with fictional data. It runs entirely in the browser, has no backend, and does not contain RentalOS application source code.
 

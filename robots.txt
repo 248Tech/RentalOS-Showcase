@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://248tech.github.io/rentalos-site/sitemap.xml
+Sitemap: https://248tech.github.io/RentalOS-Showcase/sitemap.xml
